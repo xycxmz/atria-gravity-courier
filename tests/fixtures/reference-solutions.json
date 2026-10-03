@@ -1,0 +1,18 @@
+{
+  "kind": "design-reference-not-game-tests",
+  "physicsVersion": "1.0-design",
+  "integrator": "velocity-verlet",
+  "dt": 0.008333333333333333,
+  "solutions": [
+    {"level":"H01","angleDegrees":-2,"speed":40,"burn":null,"outcome":"success","time":15.657539491594397,"relativeSpeed":40},
+    {"level":"H02","angleDegrees":-70,"speed":40,"burn":null,"outcome":"success","time":17.948792303631855,"relativeSpeed":48.566414938168265},
+    {"level":"H03","angleDegrees":-47,"speed":40,"burn":null,"outcome":"success","time":11.889256678800152,"relativeSpeed":52.06637739577999},
+    {"level":"H04","angleDegrees":14,"speed":40,"burn":null,"outcome":"success","time":10.457729933740598,"relativeSpeed":59.1544634175487},
+    {"level":"H05","angleDegrees":61,"speed":40,"burn":null,"outcome":"success","time":10.069582079231179,"relativeSpeed":86.53651187146048},
+    {"level":"H06","angleDegrees":-60,"speed":40,"burn":null,"outcome":"success","time":9.164064732666683,"relativeSpeed":73.72198944124587}
+  ],
+  "analyticControls": [
+    {"level":"H01","angleDegrees":0,"speed":80,"burn":null,"expectedTime":7.675},
+    {"level":"H01","angleDegrees":0,"speed":80,"burn":{"step":240,"angleDegrees":0,"deltaV":10},"expectedTime":7.044444444444444}
+  ]
+}

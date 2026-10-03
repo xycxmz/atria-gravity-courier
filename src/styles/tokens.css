@@ -1,0 +1,468 @@
+:root {
+  --bg: #101927;
+  --bg-deep: #0b1220;
+  --bg-panel: rgba(16, 25, 39, 0.92);
+  --fg: #f4f1df;
+  --fg-dim: #c9d2e0;
+  --preview: #f4cf7a;
+  --craft: #f4f1df;
+  --receiver: #74c8b8;
+  --danger: #e68a7c;
+  --aux: #657c96;
+  --border: rgba(101, 124, 150, 0.4);
+  --radius: 10px;
+  --touch: 44px;
+  --font: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  height: 100%;
+}
+
+#root {
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 14px;
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.topbar .level-name {
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.level-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-dim);
+  min-height: var(--touch);
+  min-width: var(--touch);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-family: var(--font);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--preview);
+  color: #14202f;
+  border-color: var(--preview);
+  font-weight: 600;
+}
+
+/* 桌面宽屏时邮路标签附短名；窄屏只显示编号避免拥挤 */
+@media (min-width: 900px) {
+  .chip::after {
+    content: ' ' attr(data-short);
+    font-size: 12px;
+  }
+}
+.chip .done-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--receiver);
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.topbar .spacer {
+  flex: 1;
+}
+
+.icon-button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-dim);
+  min-height: var(--touch);
+  min-width: var(--touch);
+  padding: 4px 12px;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.icon-button[aria-pressed='true'] {
+  background: var(--aux);
+  color: var(--fg);
+}
+
+.world-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.world-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.aim-stick {
+  position: absolute;
+  width: var(--touch);
+  height: var(--touch);
+  margin-left: calc(var(--touch) / -2);
+  margin-top: calc(var(--touch) / -2);
+  border-radius: 50%;
+  border: 2px solid var(--preview);
+  background: rgba(244, 207, 122, 0.18);
+  cursor: grab;
+  touch-action: none;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aim-stick:active {
+  cursor: grabbing;
+}
+
+.aim-stick .deg {
+  position: absolute;
+  top: calc(var(--touch) / 2 + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--preview);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.result-card {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  width: min(480px, calc(100% - 24px));
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  z-index: 6;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}
+
+.result-card h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.result-card.success h2 {
+  color: var(--receiver);
+}
+
+.result-card.failure h2 {
+  color: var(--danger);
+}
+
+.result-card p {
+  margin: 4px 0;
+  font-size: 13px;
+  color: var(--fg-dim);
+  line-height: 1.5;
+}
+
+.result-card .actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.primary-button {
+  appearance: none;
+  border: none;
+  background: var(--preview);
+  color: #14202f;
+  min-height: var(--touch);
+  padding: 6px 18px;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary-button:disabled {
+  background: var(--aux);
+  color: var(--fg-dim);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.secondary-button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-dim);
+  min-height: var(--touch);
+  padding: 6px 14px;
+  border-radius: var(--radius);
+  font-family: var(--font);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.secondary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controls {
+  display: flex;
+  gap: 14px;
+  align-items: stretch;
+  padding: 10px 14px 12px;
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 150px;
+  flex: 1 1 180px;
+}
+
+.control-group label {
+  font-size: 12px;
+  color: var(--fg-dim);
+}
+
+.control-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-row input[type='range'] {
+  flex: 1;
+  min-width: 80px;
+  accent-color: var(--preview);
+}
+
+.control-row input[type='number'] {
+  width: 76px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--fg);
+  border-radius: 8px;
+  min-height: var(--touch);
+  padding: 2px 8px;
+  font-family: var(--font);
+  font-size: 14px;
+}
+
+.action-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-line {
+  font-size: 12px;
+  color: var(--aux);
+  min-height: 18px;
+}
+
+.status-line.warn {
+  color: var(--danger);
+}
+
+/* 微调面板期覆盖画布的拖拽层：可从飞船直接拖出修正方向，不遮挡世界 */
+.burn-drag-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.hint-bar {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  max-width: min(560px, calc(100% - 24px));
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  font-size: 12.5px;
+  color: var(--fg-dim);
+  line-height: 1.5;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.hint-bar button {
+  appearance: none;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg-dim);
+  border-radius: 6px;
+  min-width: 28px;
+  min-height: 28px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.help-dialog {
+  position: absolute;
+  inset: 12px;
+  z-index: 8;
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  overflow: auto;
+}
+
+.help-dialog h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.help-dialog p,
+.help-dialog li {
+  font-size: 13px;
+  color: var(--fg-dim);
+  line-height: 1.6;
+}
+
+.help-dialog ul {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+
+.kbd {
+  display: inline-block;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 0 6px;
+  font-size: 12px;
+  color: var(--fg);
+  background: var(--bg);
+}
+
+/* 竖屏手机（390 × 844 量级）：控制区折叠为底部卡片，但世界保持完整显示 */
+@media (max-width: 640px) {
+  .world-wrap {
+    flex: 1 1 auto;
+    /* 世界保底高度：控制卡展开时不得把画布压成细条 */
+    min-height: 52%;
+  }
+  .controls {
+    display: block;
+    padding: 0;
+    border-top: 1px solid var(--border);
+    /* 展开时限高并内部滚动，把空间还给世界 */
+    max-height: 46%;
+    overflow: auto;
+  }
+  .controls > summary {
+    list-style: none;
+    cursor: pointer;
+    min-height: var(--touch);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--fg-dim);
+    font-size: 14px;
+    gap: 8px;
+    position: sticky;
+    top: 0;
+    background: var(--bg-deep);
+  }
+  .controls > summary::-webkit-details-marker {
+    display: none;
+  }
+  .controls[open] > summary {
+    border-bottom: 1px solid var(--border);
+  }
+  .controls .controls-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 14px 14px;
+  }
+  .controls .control-group {
+    /* 手机列布局下不能沿用桌面 180px 纵向基准 */
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  .topbar {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+  .topbar .level-name {
+    font-size: 14px;
+  }
+  .result-card {
+    bottom: 8px;
+    max-height: 40%;
+    overflow: auto;
+  }
+}
+
+@media (min-width: 641px) {
+  .controls > summary {
+    display: none;
+  }
+  .controls .controls-inner {
+    display: flex;
+    gap: 14px;
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+}

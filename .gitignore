@@ -1,0 +1,14 @@
+node_modules/
+**/node_modules/
+.venv/
+__pycache__/
+*.pyc
+*.tsbuildinfo
+.vite/
+.env
+.env.*
+!*.example
+*.log
+data/unified.db
+data/unified.db-*
+

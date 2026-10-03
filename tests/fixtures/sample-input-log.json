@@ -1,0 +1,19 @@
+{
+  "kind": "gravity-courier-deterministic-input-log",
+  "physicsVersion": "1.0-design",
+  "levelId": "H01",
+  "angleDegrees": 0,
+  "speed": 80,
+  "burns": [
+    {
+      "step": 240,
+      "angleDegrees": 0,
+      "deltaV": 10
+    }
+  ],
+  "expectedOutcome": {
+    "kind": "success",
+    "time": 7.044444,
+    "stepsExecuted": 847
+  }
+}

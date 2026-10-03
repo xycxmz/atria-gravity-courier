@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "physicsVersion": "1.0-design",
+  "world": {"width":1000,"height":700},
+  "physics": {
+    "dt": 0.008333333333333333,
+    "maxFlightSeconds": 30,
+    "softening": 12,
+    "craftRadius": 4,
+    "launchSpeedMin": 40,
+    "launchSpeedMax": 140,
+    "launchAngleMinDegrees": -70,
+    "launchAngleMaxDegrees": 70,
+    "maxBurnDeltaV": 24,
+    "maxBurnCount": 1,
+    "maxDockRelativeSpeed": 100
+  },
+  "levels": [
+    {
+      "id":"H01","name":"第一次投递",
+      "launch":{"x":120,"y":350},
+      "bodies":[],
+      "receiver":{"kind":"fixed","x":760,"y":350,"radius":22},
+      "defaultAim":{"angleDegrees":0,"speed":80},
+      "teachingFocus":"发射方向、速度与即时重试"
+    },
+    {
+      "id":"H02","name":"借一个弯",
+      "launch":{"x":120,"y":350},
+      "bodies":[{"id":"p1","x":500,"y":350,"radius":50,"mu":600000}],
+      "receiver":{"kind":"fixed","x":830,"y":350,"radius":22},
+      "defaultAim":{"angleDegrees":-30,"speed":80},
+      "teachingFocus":"引力弯曲与预览线"
+    },
+    {
+      "id":"H03","name":"等你经过",
+      "launch":{"x":120,"y":350},
+      "bodies":[{"id":"p1","x":500,"y":350,"radius":50,"mu":600000}],
+      "receiver":{"kind":"orbit","cx":500,"cy":350,"orbitRadius":220,"omega":0.075,"phase":0,"radius":22},
+      "defaultAim":{"angleDegrees":20,"speed":80},
+      "teachingFocus":"运动接收站与同一时刻相遇"
+    },
+    {
+      "id":"H04","name":"轻轻一推",
+      "launch":{"x":120,"y":500},
+      "bodies":[{"id":"p1","x":500,"y":350,"radius":50,"mu":600000}],
+      "receiver":{"kind":"orbit","cx":500,"cy":350,"orbitRadius":210,"omega":-0.085,"phase":-0.5,"radius":22},
+      "defaultAim":{"angleDegrees":-30,"speed":80},
+      "teachingFocus":"可选的一次中途微调，不强制消耗"
+    },
+    {
+      "id":"H05","name":"绕过静石",
+      "launch":{"x":120,"y":350},
+      "bodies":[
+        {"id":"p1","x":500,"y":350,"radius":50,"mu":600000},
+        {"id":"rock","x":630,"y":420,"radius":36,"mu":0}
+      ],
+      "receiver":{"kind":"orbit","cx":500,"cy":350,"orbitRadius":220,"omega":0.09,"phase":0.2,"radius":22},
+      "defaultAim":{"angleDegrees":-30,"speed":90},
+      "teachingFocus":"区分引力天体与只阻挡的障碍"
+    },
+    {
+      "id":"H06","name":"双星来信",
+      "launch":{"x":110,"y":510},
+      "bodies":[
+        {"id":"p1","x":440,"y":290,"radius":40,"mu":450000},
+        {"id":"p2","x":685,"y":420,"radius":35,"mu":250000}
+      ],
+      "receiver":{"kind":"orbit","cx":685,"cy":420,"orbitRadius":115,"omega":-0.16,"phase":-1.8,"radius":22},
+      "defaultAim":{"angleDegrees":-25,"speed":90},
+      "teachingFocus":"两个固定引力源的共同影响"
+    }
+  ]
+}
